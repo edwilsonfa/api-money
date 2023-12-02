@@ -55,6 +55,12 @@ public class CategoriaResource {
 
     }
 
+    @DeleteMapping("/{codigo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long codigo){
+        categoriaRepository.deleteById(codigo);
+    }
+
 
 
 }

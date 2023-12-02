@@ -39,6 +39,11 @@ public class PessoaResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
     }
 
+    @DeleteMapping("/{codigo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long codigo) {
+        pessoaRepository.deleteById(codigo);
+    }
 
 
 }
