@@ -3,6 +3,7 @@ package com.api.money.apimoney.resource;
 import com.api.money.apimoney.event.RecursoCriadoEvent;
 import com.api.money.apimoney.model.Categoria;
 import com.api.money.apimoney.repository.CategoriaRepository;
+import com.api.money.apimoney.service.CategoriaService;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,9 @@ import java.util.Optional;
 public class CategoriaResource {
     @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private CategoriaService categoriaService;
 
     @Autowired
     private ApplicationEventPublisher publisher;
@@ -61,7 +65,11 @@ public class CategoriaResource {
         categoriaRepository.deleteById(codigo);
     }
 
-
+    @PutMapping("/{codigo}")
+    public ResponseEntity<Categoria> atualizar(@PathVariable Long codigo, @Valid @RequestBody Categoria categoria){
+        Categoria categoriaSalva = categoriaService.atualizarCategoria(codigo, categoria);
+        return ResponseEntity.ok(categoriaSalva);
+    }
 
 }
 
